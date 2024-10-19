@@ -86,5 +86,5 @@ if __name__ == '__main__':
     Punto de entrada principal del programa.
     """
     # Ejemplo de entrada con dos operaciones: una de map y otra de filter
-    input_text = 'MAP(square, [1, 2, 3, 4])\nFILTER(is_even, [1, 2, 3, 4])'  # Puedes modificar la entrada
+    input_text = 'MAP(square, [10, 20, 30, 40])\nFILTER(is_even, [11, 24, 37, 48])'  # Puedes modificar la entrada
     main(input_text)  # Llama a la función principal con la entrada proporcionada
