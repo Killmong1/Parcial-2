@@ -1,11 +1,11 @@
 import sys
 from antlr4 import *
-from ComplexLexer import ComplexLexer
-from ComplexParser import ComplexParser
-from ComplexVisitor import ComplexVisitor  # Importar el visitor generado por ANTLR
+from punto1Lexer import punto1Lexer
+from punto1Parser import punto1Parser
+from punto1Visitor import punto1Visitor  # Importar el visitor generado por ANTLR
 
 # Clase para recorrer el árbol generado por el parser
-class MyComplexVisitor(ComplexVisitor):  # Extiende del visitor generado
+class MyComplexVisitor(punto1Visitor):  # Extiende del visitor generado
     def visitAddExpr(self, ctx):
         left = self.visit(ctx.expr(0))  # Visitamos la subexpresión izquierda
         right = self.visit(ctx.expr(1))  # Visitamos la subexpresión derecha
@@ -41,9 +41,9 @@ class MyComplexVisitor(ComplexVisitor):  # Extiende del visitor generado
 # Función principal para procesar una expresión
 def main(input_text):
     input_stream = InputStream(input_text)
-    lexer = ComplexLexer(input_stream)
+    lexer = punto1Lexer(input_stream)
     token_stream = CommonTokenStream(lexer)
-    parser = ComplexParser(token_stream)
+    parser = punto1Parser(token_stream)
     tree = parser.expr()
 
     visitor = MyComplexVisitor()
