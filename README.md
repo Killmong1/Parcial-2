@@ -11,4 +11,8 @@ como ejecutar el punto 1:
 como ejecutar el punto 2:
 
 
+- java -jar antlr-4.13.0-complete.jar -Dlanguage=Python3 punto2.g4 -> generar archivos antlr
+- antlr4 -Dlanguage=Python3 punto2.g4 -> compilar los archivos ant
+- python Main2.py -> ejecutar el programa
+
  
