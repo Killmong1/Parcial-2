@@ -1,3 +1,0 @@
-MAP(myFunction, [1, 2, 3, 4])
-MAP(anotherFunction(), (5, 6, 7))
-
