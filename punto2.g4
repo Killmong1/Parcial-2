@@ -1,42 +1,44 @@
-grammar MapGrammar;
+grammar punto2;
 
-// Reglas de entrada
-program         : statement* EOF ;
-statement       : mapFunction
-                | functionDefinition
-                ;
+// Reglas del parser
+program : statement+ EOF;
 
-// Definición de la función map
-mapFunction     : 'MAP' '(' function ',' iterable ')' ;
+statement
+    : mapFunc
+    | filterFunc
+    ;
 
-// Definición de la función (puede ser una función predefinida o una definida por el usuario)
-function        : IDENTIFIER '(' (expression (',' expression)*)? ')' 
-                | IDENTIFIER  // Funciones predefinidas sin parámetros
-                ;
+mapFunc
+    : 'MAP' '(' ID ',' iterable ')' # MapFunction
+    ;
 
-// Definición de un iterable
-iterable        : list
-                | tuple
-                ;
+filterFunc
+    : 'FILTER' '(' ID ',' iterable ')' # FilterFunction
+    ;
 
-// Definición de una lista
-list            : '[' (expression (',' expression)*)? ']' ;
+// Definición de un iterable: lista o tupla
+iterable
+    : list
+    | tuple
+    ;
 
-// Definición de una tupla
-tuple           : '(' (expression (',' expression)*)? ')' ;
+list
+    : '[' exprList ']' # ListIterable
+    ;
 
-// Expresiones válidas
-expression      : IDENTIFIER
-                | NUMBER
-                | STRING
-                | '(' expression ')'  // Soporte para paréntesis
-                ;
+tuple
+    : '(' exprList ')' # TupleIterable
+    ;
 
-// Definiciones de terminales
-IDENTIFIER      : [a-zA-Z_][a-zA-Z_0-9]* ;  // Identificadores (nombres de funciones y variables)
-NUMBER          : [0-9]+ ;                      // Números enteros
-STRING          : '"' (ESC | ~["\\])* '"' ;   // Cadenas entre comillas
-fragment ESC    : '\\' [btnfr"'\\] ;           // Escape de caracteres
+exprList
+    : expr (',' expr)*  // Lista de expresiones separadas por comas
+    ;
 
-WS              : [ \t\r\n]+ -> skip ;          // Espacios en blanco
+expr
+    : INT  // Por simplicidad, consideramos solo enteros en esta gramática
+    ;
 
+// Tokens
+ID  : [a-zA-Z_][a-zA-Z_0-9]*;  // Identificadores de funciones
+INT : [0-9]+;  // Números enteros
+WS  : [ \t\r\n]+ -> skip;  // Ignorar espacios en blanco
