@@ -1,19 +1,19 @@
 grammar punto1;
 
-// Regla de entrada principal
-expr: term (('+' | '-') term)*;
+// Reglas de parser
+expr:   expr '+' expr               # AddExpr
+    |   expr '-' expr               # SubtractExpr
+    |   expr '*' expr               # MultiplyExpr
+    |   '(' expr ')'                # ParenExpr
+    |   complexNumber               # ComplexExpr
+    ;
 
-// Regla para un término que puede ser un número complejo
-term: '(' complexNumber ')' 
-    | complexNumber;
-
-// Regla para un número complejo
-complexNumber: REAL ('+' | '-') IMAGINARY;
+// Definición de un número complejo
+complexNumber: REAL ( ('+'|'-') IMAGINARY )?;
 
 // Tokens
-REAL: [0-9]+; // Para representar la parte real
-IMAGINARY: [0-9]+ 'i'; // Para representar la parte imaginaria
+REAL: [0-9]+;  // Parte real
+IMAGINARY: [0-9]+ 'i';  // Parte imaginaria
 
-// Espacios en blanco
-WS: [ \t\r\n]+ -> skip; // Ignora los espacios en blanco
-
+// Ignoramos los espacios en blanco
+WS: [ \t\r\n]+ -> skip;
